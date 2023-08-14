@@ -1,0 +1,11 @@
+.nav-link {
+  color: var(--bs-white);
+  border-radius: 10px 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.nav-link:hover {
+  color: var(--bs-primary)!important;
+  box-shadow: 0 0.125rem 0.25rem rgba(var(--bs-body-color-rgb),.075)!important;
+  background-color: var(--bs-white)!important;
+}

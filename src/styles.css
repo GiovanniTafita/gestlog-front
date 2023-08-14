@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.css';
+
+.btn {
+  border-radius: 10px 5px!important;
+  transition: all .2s;
+}
+.btn:hover {
+  border-radius: 10px!important;
+}

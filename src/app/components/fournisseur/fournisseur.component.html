@@ -1,0 +1,96 @@
+<div id="btn-container">
+
+</div>
+<div class="container mt-3">
+  <div class="row bg-white p-2 mb-2 rounded-pill shadow-sm">
+    <div class="col d-flex justify-content-between align-items-center">
+      <h4 class="m-0"><span class="badge bg-secondary">Fournisseurs</span></h4>
+      <form [formGroup]="searchForm" class="w-50">
+        <div class="rounded-pill">
+          <input (input)="handleSearch()" type="text" formControlName="key" class="form-control bg-light rounded-pill" placeholder="Rechercher" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </form>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="openForm(null)">
+          <i class="fa fa-plus-square"></i>
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row rounded bg-white overflow-auto shadow">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom du Fournisseur</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Télephone</th>
+            <th scope="col">Opération</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let f of fournisseurs">
+            <th scope="row" class="align-middle">{{ f.idFrns }}</th>
+            <td class="align-middle">{{ f.nomFrns }}</td>
+            <td class="align-middle">{{ f.adrsFrns }}</td>
+            <td class="align-middle">{{ f.telFrns }}</td>
+            <td>
+              <button class="btn btn-secondary me-1" (click)="openForm(f)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger" (click)="handleDelete(f)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="...">
+        <ul class="pagination pagination">
+          <li *ngFor="let p of [].constructor(totalPages); let i = index" class="page-item">
+            <a (click)="goToPage(i)" [ngClass]="i==currentPage? 'active': ''" class="page-link">{{i}}</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="demandeurModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire Fournisseur</h1>
+        <button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="frnsForm" (ngSubmit)="handleSubmit()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            <input type="number" formControlName="idFrns" class="form-control" placeholder="Identifiant du fournisseur" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nom du Fournisseur</label>
+            <input type="text" formControlName="nomFrns" class="form-control" placeholder="Entrez le nom du fournisseur" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Adresse</label>
+            <input type="text" formControlName="adrsFrns" class="form-control" placeholder="Adresse du fournisseur" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Téléphone</label>
+            <input type="number" formControlName="telFrns" class="form-control" placeholder="Numero de téléphone" max="999999999999" required>
+          </div>
+          <!-- <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times-circle"></i> Annuler</button>
+            <button type="submit" [disabled]="!frnsForm.valid" class="btn btn-primary"><i class="fa fa-save"></i> Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

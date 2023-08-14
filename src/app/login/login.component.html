@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5 bg-white rounded-4 shadow-sm py-2 px-4">
+      <h2 class="text-center"><span class="badge bg-secondary">Authentification</span></h2>
+      <form [formGroup]="formLogin" class="mt-3">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nom de l'utilisateur</label>
+          <input formControlName="userName" type="text" class="form-control bg-light">
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+          <input formControlName="password" type="password" class="form-control bg-light">
+        </div>
+
+        <div class="text-end">
+          <button type="submit" class="btn btn-secondary"><i class="fa fa-save"></i> Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div id="btn-container">
+
+</div>
+<div class="container mt-3">
+  <div class="row bg-white mb-2 rounded shadow-sm">
+    <div class="col d-flex justify-content-between align-items-center p-2">
+      <h4 class="m-0"><span class="badge bg-secondary">Matériel</span></h4>
+      <form [formGroup]="searchForm" class="w-50">
+        <div class="rounded-pill">
+          <input (input)="handleSearch()" type="text" formControlName="key" class="form-control bg-light rounded-pill" placeholder="Rechercher" aria-describedby="basic-addon1">
+        </div>
+      </form>
+      <div>
+        <a type="button" class="btn btn-primary" routerLink="addMateriel">
+          <i class="fa fa-cart-arrow-down"></i>
+          S'approvisionner
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row rounded bg-white overflow-auto shadow">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Désignation</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Disponible</th>
+            <th scope="col">Opérations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mat of materiels">
+            <th scope="row" class="align-middle">{{ mat.idMat }}</th>
+            <td class="align-middle">{{ mat.desMat }}</td>
+            <td class="align-middle">{{ mat.etatMat }}</td>
+            <td class="align-middle">{{ mat.cateMat }}</td>
+            <td class="align-middle"><span *ngIf="mat.dispo; else nonDispo" class="badge text-bg-success">OUI</span></td>
+            <ng-template #nonDispo><span class="badge text-bg-danger">NON</span></ng-template>
+            <td>
+              <button *ngIf="!mat.dispo" class="btn btn-secondary me-1" (click)="openForm(mat, true)"><i class="fa fa-arrow-circle-left"></i></button>
+              <button *ngIf="mat.dispo"  class="btn btn-primary"><i class="fa fa-arrow-circle-right" (click)="openForm(mat, false)"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="...">
+        <ul class="pagination pagination">
+          <li *ngFor="let p of [].constructor(totalPages); let i = index" class="page-item">
+            <a (click)="goToPage(i)" [ngClass]="i==currentPage? 'active': ''" class="page-link">{{i}}</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="matModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{formText}} un Matériel</h1>
+        <button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="matForm" (ngSubmit)="handleSubmit()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">ID materiel</label>
+            <input type="number" formControlName="idMat" class="form-control" placeholder="Identifiant du matériel" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Désignation</label>
+            <input type="text" formControlName="desMat" class="form-control" placeholder="Désignation" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Etat</label>
+            <input type="text" formControlName="etatMat" class="form-control" placeholder="Etat du matériel" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Catégorie</label>
+            <input type="text" formControlName="cateMat" class="form-control" placeholder="Catégorie du matériel" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Sélectionner un Demandeur</label>
+            <!-- <input type="text" formControlName="idDem" class="form-control" placeholder="Identifiant du demandeur"> -->
+            <select class="form-select" aria-label="Default select example" formControlName="idDem" required>
+              <option *ngFor="let dem of demandeurs" value="{{ dem.idDem}}">{{ dem.idDem}} {{ dem.nomDem }}</option>
+            </select>
+          </div>
+          <!-- <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" [disabled]="!matForm.valid" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i> {{formText}} ce matériel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

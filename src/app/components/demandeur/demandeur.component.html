@@ -1,0 +1,117 @@
+<div id="btn-container">
+
+</div>
+<div class="container mt-3">
+  <div class="row bg-white p-2 mb-2 rounded-pill shadow-sm">
+    <div class="col d-flex justify-content-between align-items-center">
+      <h4 class="m-0"><span class="badge bg-secondary">Demandeurs</span></h4>
+      <div>
+        <input (click)="toggleView()" type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btn-check-outlined">Card</label><br>
+      </div>
+      <form [formGroup]="searchForm" class="w-50">
+        <div class="rounded-pill">
+          <input (input)="handleSearch()" type="text" formControlName="key" class="form-control bg-light rounded-pill" placeholder="Rechercher" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </form>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="openForm(null)">
+          <i class="fa fa-plus-square"></i>
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row rounded bg-white overflow-hidden shadow">
+    <div class="col">
+      <div *ngIf="card" class="d-flex flex-wrap justify-content-center">
+        <div *ngFor="let dem of demandeurs" class="card w-25 me-2 mt-2 shadow-sm">
+          <div class="card-header fw-bold">
+            ID: {{ dem.idDem }}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span class="badge bg-secondary">Nom</span> {{ dem.nomDem }}</li>
+            <li class="list-group-item"><span class="badge bg-secondary">Fonction</span> {{ dem.foncDem }}</li>
+            <li class="list-group-item"><span class="badge bg-secondary">Télephone</span> {{ dem.telDem }}</li>
+            <li class="list-group-item text-end">
+              <button class="btn btn-secondary me-1" (click)="openForm(dem)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger" (click)="handleDelete(dem)"><i class="fa fa-trash"></i></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <table *ngIf="table" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom du demandeur</th>
+            <th scope="col">Fonction</th>
+            <th scope="col">Télephone</th>
+            <th scope="col">Opération</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dem of demandeurs">
+            <th scope="row" class="align-middle">{{ dem.idDem }}</th>
+            <td class="align-middle">{{ dem.nomDem }}</td>
+            <td class="align-middle">{{ dem.foncDem }}</td>
+            <td class="align-middle">{{ dem.telDem }}</td>
+            <td>
+              <button class="btn btn-secondary me-1" (click)="openForm(dem)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger" (click)="handleDelete(dem)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav aria-label="...">
+        <ul class="pagination pagination">
+          <li *ngFor="let p of [].constructor(totalPages); let i = index" class="page-item">
+            <a (click)="goToPage(i)" [ngClass]="i==currentPage? 'active': ''" class="page-link">{{i}}</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="demandeurModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire demandeur</h1>
+        <button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="demForm" (ngSubmit)="handleSubmit()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            <input type="number" formControlName="idDem" class="form-control" placeholder="Identifiant du demandeur" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nom du demandeur</label>
+            <input type="text" formControlName="nomDem" class="form-control" placeholder="Entrez le nom du demandeur" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Fonction</label>
+            <input type="text" formControlName="foncDem" class="form-control" placeholder="Fonction du demandeur" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Téléphone</label>
+            <input type="number" formControlName="telDem" class="form-control" placeholder="Numéro de Téléphone" max="999999999999" required>
+          </div>
+          <!-- <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times-circle"></i> Annuler</button>
+            <button [disabled]="!demForm.valid" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

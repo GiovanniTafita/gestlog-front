@@ -1,0 +1,39 @@
+<nav class="navbar fixed-top bg-primary shadow-sm">
+  <div class="container-fluid px-3">
+    <a class="navbar-brand fw-bold text-white"><i class="fa fa-get-pocket fa-lg"></i> GestLog</a>
+    <ul class="nav justify-content-end text-dark">
+      <li class="nav-item">
+        <a class="nav-link {{ homeActive }}" (click)="checkActive('home')" aria-current="page" routerLink=""><i class="fa fa-home fs-5"></i> Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ matActive }}" (click)="checkActive('materiel')" routerLink="materiel">Matériel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ frnsActive }}" (click)="checkActive('fournisseur')" routerLink="fournisseur">Fournisseur</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ demActive }}" (click)="checkActive('demandeur')" routerLink="demandeur">Demandeur</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="navbar bg-light d-hidden">
+  <div class="container-fluid">
+    <a class="navbar-brand">GestLog</a>
+    <ul class="nav justify-content-end text-dark">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="#">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="materiel">Materiel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="fournisseur">Fournisseur</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="demandeur">Demandeur</a>
+      </li>
+    </ul>
+  </div>
+</nav>

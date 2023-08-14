@@ -1,0 +1,59 @@
+<div class="container px-5 py-3">
+  <h1>GestLog gère vos flux de matériels</h1>
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div>
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked (click)="getAllBy('')">
+      <label class="btn btn-outline-primary" for="btnradio1">Tout</label>
+    </div>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="getAllBy('entree')">
+    <label class="btn btn-outline-primary" for="btnradio2">Entrée</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="getAllBy('sortie')">
+    <label class="btn btn-outline-primary" for="btnradio3">Sortie</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (click)="getAllBy('remise')">
+    <label class="btn btn-outline-primary" for="btnradio4">Remise</label>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <div *ngFor="let f of flux" class="row mt-4">
+        <h6>Opération du {{ f.dateFlux | date }}</h6>
+        <div class="col p-3 bg-white rounded-pill d-flex justify-content-between align-items-center shadow">
+          <div>
+            <strong>Matériel N°</strong>
+            <span class="badge text-bg-dark">{{ f.materiel.idMat }}</span>  
+          </div>
+          <div>
+            {{ f.materiel.desMat }}
+          </div>
+        </div>
+        <div class="col rounded-pill d-flex justify-content-center align-items-center">
+          <div class="d-flex align-items-center">
+            <h5 *ngIf="f.typeFlux === 'ENTREE'"><span class="badge text-bg-success m-0">ENTREE</span></h5>
+            <h5 *ngIf="f.typeFlux === 'SORTIE'"><span class="badge text-bg-danger m-0">SORTIE</span></h5>
+            <h5 *ngIf="f.typeFlux === 'REMISE'"><span class="badge text-bg-warning m-0">REMISE</span></h5>
+          </div>
+        </div>
+        <div *ngIf="f.demandeur !== null" class="col p-3 bg-white rounded-pill d-flex justify-content-between align-items-center shadow">
+          <div>
+            <strong>Demandeur </strong>
+            <span class="badge text-bg-primary">{{ f.demandeur.idDem }}</span>
+          </div>
+          <div>
+            {{ f.demandeur.nomDem }}
+          </div>
+        </div>
+        <div *ngIf="f.fournisseur !== null" class="col p-3 bg-white rounded-pill d-flex justify-content-between align-items-center shadow">
+          <div>
+            <strong>Fournisseur </strong>
+            <span class="badge text-bg-secondary">{{ f.fournisseur.idFrns }}</span>
+          </div>
+          <div>
+            {{ f.fournisseur.nomFrns }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

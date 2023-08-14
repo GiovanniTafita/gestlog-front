@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5 bg-white rounded-4 shadow py-2 px-4">
+      <h2 class="text-center"><span class="badge bg-secondary">Approvisionnement <i class="fa fa-cart-arrow-down"></i></span></h2>
+      <form [formGroup]="matForm" (ngSubmit)="handleSubmit()" class="mt-3">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Désignation</label>
+          <input formControlName="desMat" type="text" class="form-control bg-light" placeholder="Déscription du matérriel" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Etat</label>
+          <input formControlName="etatMat" type="text" class="form-control bg-light" placeholder="Etat du matériel" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Catégorie</label>
+          <input formControlName="cateMat" type="text" class="form-control bg-light" placeholder="Catégorie" required>
+        </div>
+
+        <!-- <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Fournisseur</label>
+          <input formControlName="idFrns" type="text" class="form-control bg-light">
+        </div> -->
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Sélectionner un fournisseur</label>
+          <select class="form-select" aria-label="Default select example" formControlName="idFrns" required>
+            <option *ngFor="let frns of fournisseurs" value="{{ frns.idFrns}}">{{ frns.idFrns}} {{ frns.nomFrns }}</option>
+          </select>
+        </div>
+      
+        <div class="text-end">
+          <button type="submit" [disabled]="!matForm.valid" class="btn btn-primary"><i class="fa fa-save"></i> Enregistrer le matériel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
